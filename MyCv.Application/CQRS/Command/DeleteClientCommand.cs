@@ -5,11 +5,17 @@ namespace MyCv.Application.CQRS.Command
 {
     public class DeleteClientCommand:IRequest
     {
-        public Guid Id { get; set; }
-
+        /// <summary>
+        /// DeleteClientCommand
+        /// </summary>
+        /// <param name="id"></param>
         public DeleteClientCommand(Guid id)
         {
             Id = id;
         }
+
+
+        public Guid Id { get; set; }
+        
     }
 }

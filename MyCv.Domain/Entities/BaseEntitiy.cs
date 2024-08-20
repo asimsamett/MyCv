@@ -2,11 +2,16 @@
 {
     public class BaseEntitiy
     {
-        public Guid Id { get; set; }
 
-        public void BaseEntitiyProperty(Guid ıd)
+        /// <summary>
+        /// BaseEntitiyProperty
+        /// </summary>
+        /// <param name="id"></param>
+        public void BaseEntitiyProperty(Guid id)
         {
-            Id = ıd;
+            Id = id;
         }
+
+        public Guid Id { get; set; }
     }
 }

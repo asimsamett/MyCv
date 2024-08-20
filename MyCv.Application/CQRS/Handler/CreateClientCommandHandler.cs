@@ -19,13 +19,18 @@ namespace MyCv.Application.CQRS.Handler
             var client = new Client();
             
             client.ClientProperties
-                (
-               
-                command.Name,
-                command.Surname,
-                command.PhoneNumber,
-                command.Address,
-                command.Email
+                (              
+                    command.Name,
+                    command.Surname,
+                    command.PhoneNumber,
+                    command.Address,
+                    command.Email,
+                    new ClientFeatures
+                        (
+                            command.ClientFeature.Position,
+                            command.ClientFeature.Education,
+                            command.ClientFeature.Referance
+                        )
                 );
             await _clientRepository.AddAsync(client);
             await _clientRepository.SaveChangeAsync();

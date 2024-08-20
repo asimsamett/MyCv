@@ -1,16 +1,14 @@
 ﻿using FluentValidation;
 
 namespace MyCv.Application.CQRS.Command
-
 {
-    public sealed class CreateClientCommandValidator : AbstractValidator<CreateClientCommand>
+    public sealed class UpdateClientCommandValidator : AbstractValidator<UpdateClientCommand>
     {
 
-        public CreateClientCommandValidator()
+        public UpdateClientCommandValidator()
         {
 
             // Client Validation
-
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Boş giremezsin!!")
                 .MaximumLength(120).WithMessage("En fazla 120 karakter olmalı.");
@@ -32,22 +30,24 @@ namespace MyCv.Application.CQRS.Command
 
 
             // ClientFeature Validation
-            
-             RuleFor(x => x.ClientFeature)
-                .NotNull().WithMessage("ClientFeature boş olamaz.");
 
-            When(x => x.ClientFeature != null, () =>
+            RuleFor(x => x.UpdateClientFeatures)
+               .NotNull().WithMessage("ClientFeature boş olamaz.");
+
+            When(x => x.UpdateClientFeatures != null, () =>
             {
-                RuleFor(x => x.ClientFeature.Education)
+                RuleFor(x => x.UpdateClientFeatures.Education)
                     .NotEmpty().WithMessage("Eğitim boş geçilemez");
 
-                RuleFor(x => x.ClientFeature.Position)
+                RuleFor(x => x.UpdateClientFeatures.Position)
                     .NotEmpty().WithMessage("Pozisyon boş geçilemez");
 
-                RuleFor(x => x.ClientFeature.Referance)
+                RuleFor(x => x.UpdateClientFeatures.Referance)
                     .NotEmpty().WithMessage("Referans boş geçilemez")
                     .MaximumLength(50).WithMessage("Maksimum 50 karakter olmalı.");
             });
         }
     }
 }
+
+

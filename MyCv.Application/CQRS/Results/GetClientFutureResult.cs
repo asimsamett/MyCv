@@ -1,13 +1,9 @@
 ﻿using MyCv.Domain.Entities.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyCv.Application.CQRS.Results
 {
-    public class GetClientFutureResult
+
+    public class GetClientFutureResult 
     {
         public Positions Position { get;  set; }
         public Education Education { get;  set; }

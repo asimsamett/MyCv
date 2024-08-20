@@ -55,19 +55,20 @@
 
 //app.Run();
 
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MyCv.Application.CQRS.Command;
 using MyCv.Application.Interfaces;
 using MyCv.Ýnfracture;
 using MyCv.Infrastructure.Repositories;
-using Nest;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Diðer servisleri ekleyin
 builder.Services.AddControllers();
-
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 // MediatR ve CQRS iþleyicilerini ekleyin
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateClientCommand>());
 
@@ -75,20 +76,14 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Cr
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
 // Repository dependency injection
 builder.Services.AddTransient<IClientRepository, ClientRepository>();
 
-builder.Services.AddTransient<IClientElasticSearch, ElasticSearchRepository>();
+
 
 
 // Elastic Search Client
-var settings = new ConnectionSettings(new Uri("https://localhost:9200"))
-        .CertificateFingerprint("097 b9fec6d1c73be0dd97e03837a0c4a228ffc70b5f6ba494bccce295246af7e")
-        .BasicAuthentication("elastic", "changeme")
-        .DefaultIndex("clientverilerim"); // Varsayýlan indeks adý
-var client = new ElasticClient(settings);
-
-builder.Services.AddSingleton<IElasticClient>(client);
 
 // Add controllers and other services
 builder.Services.AddEndpointsApiExplorer();

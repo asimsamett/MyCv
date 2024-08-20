@@ -6,11 +6,42 @@ namespace MyCv.Domain.Entities
 
     public class ClientFeatures:BaseEntitiy
     {
+        /// <summary>
+        /// ClientFeatures
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="education"></param>
+        /// <param name="referance"></param>
+        public ClientFeatures(Positions position, Education education, string referance)
+        {
+            Position = position;
+            Education = education;
+            Referance = referance;
+        }
 
-        public Positions Position { get; private set; }
-        public Education Education { get; private set; }
-        public string Referance { get; private set; }
-        
+
+
+        /// <summary>
+        /// ClientId
+        /// </summary>
+        public Guid ClientId { get; set; }
+        /// <summary>
+        /// Position
+        /// </summary>
+        public Positions Position { get;  set; }
+        /// <summary>
+        /// Education
+        /// </summary>
+        public Education Education { get;  set; }
+        /// <summary>
+        /// Referance
+        /// </summary>
+        public string Referance { get;  set; }
+        /// <summary>
+        /// Client
+        /// </summary>
+        public Client Client { get; set; }
+
 
     }
 }
