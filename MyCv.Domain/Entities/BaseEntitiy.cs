@@ -12,6 +12,7 @@
             Id = id;
         }
 
+
         public Guid Id { get; set; }
     }
 }

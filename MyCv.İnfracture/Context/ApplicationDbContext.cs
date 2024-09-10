@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyCv.Domain.Entities;
+using MyCv.Domain.Entities.Client;
 using MyCv.İnfracture.Configration;
 
 namespace MyCv.İnfracture

@@ -1,9 +1,9 @@
 ﻿
 
 using AutoMapper;
-using MyCv.Application.CQRS.DTO;
-using MyCv.Application.CQRS.Results;
-using MyCv.Domain.Entities;
+using MyCv.Application.CQRS.ClientCQ.ClientFeature.ClientFeatureQueries;
+using MyCv.Application.CQRS.ClientCQ.ClientQueries;
+using MyCv.Domain.Entities.Client;
 
 namespace MyCv.Application.AutoMapper
 {

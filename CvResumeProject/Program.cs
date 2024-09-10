@@ -55,30 +55,43 @@
 
 //app.Run();
 
-using FluentValidation;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MyCv.Application.CQRS.Command;
-using MyCv.Application.Interfaces;
+using MyCv.Application.Dependencies;
+using MyCv.Application.Interfaces.ICacheRepository;
+using MyCv.Application.Interfaces.IRepository;
 using MyCv.Ýnfracture;
-using MyCv.Infrastructure.Repositories;
-using System.Reflection;
+using MyCv.Infrastructure.Context;
+using MyCv.Infrastructure.Repositories.CacheRepository;
+using MyCv.Infrastructure.Repositories.Repository;
+
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Diðer servisleri ekleyin
 builder.Services.AddControllers();
-builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-// MediatR ve CQRS iþleyicilerini ekleyin
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateClientCommand>());
 
+// MediatR ve CQRS iþleyicilerini ekleyin
+
+
+// Redis Cache Service
+
+builder.Services.AddAplicationServices(builder.Configuration);
+
+var redis = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+builder.Services.AddSingleton<IConnectionMultiplexer>(redis);
+builder.Services.AddScoped<IDatabase>(sp => sp.GetRequiredService<IConnectionMultiplexer>().GetDatabase());
 // DbContext dependency injection
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddElastic(builder.Configuration);
 
 
 // Repository dependency injection
-builder.Services.AddTransient<IClientRepository, ClientRepository>();
+builder.Services.AddTransient<IReadRepository, ReadRepository>();
+builder.Services.AddTransient<IWriteRepository, WriteRepository>();
+builder.Services.AddTransient<IReadCacheRepostory, ReadCacheRepository>();
+builder.Services.AddTransient<IWriteCacheRepostory,WriteCacheRepository>();
 
 
 

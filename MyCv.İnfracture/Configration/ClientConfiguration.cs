@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MyCv.Domain.Entities;
+using MyCv.Domain.Entities.Client;
 
 namespace MyCv.İnfracture.Configration
 {
